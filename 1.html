@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global TestFlight 应用中心</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <span class="icon">✈️</span>
+                TestFlight 应用中心
+            </h1>
+            <p class="subtitle">发现全球优质的 TestFlight 测试应用</p>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="search-section">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="搜索应用名称、开发者或描述..." class="search-input">
+                    <button id="searchBtn" class="search-btn">🔍</button>
+                </div>
+                
+                <div class="filter-section">
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="">所有分类</option>
+                        <option value="productivity">效率工具</option>
+                        <option value="social">社交媒体</option>
+                        <option value="entertainment">娱乐</option>
+                        <option value="utility">实用工具</option>
+                        <option value="game">游戏</option>
+                        <option value="developer">开发工具</option>
+                    </select>
+                    
+                    <select id="statusFilter" class="filter-select">
+                        <option value="">所有状态</option>
+                        <option value="active">测试中</option>
+                        <option value="full">名额已满</option>
+                        <option value="expired">已过期</option>
+                    </select>
+                </div>
+                
+                <div class="usage-tips">
+                    <p>💡 使用提示</p>
+                    <ul>
+                        <li>📱 TestFlight 链接需要在 iOS 设备上打开</li>
+                        <li>📦 请先从 App Store 安装 TestFlight 应用</li>
+                        <li>⏰ 测试可能随时结束或名额已满</li>
+                        <li>🌍 某些测试可能有地区限制</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalApps">-</div>
+                        <div class="stat-label">总应用数</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="activeApps">-</div>
+                        <div class="stat-label">测试中</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="todayAdded">-</div>
+                        <div class="stat-label">今日新增</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="apps-section">
+                <div class="section-header">
+                    <h2>应用列表</h2>
+                    <div class="sort-options">
+                        <select id="sortSelect" class="sort-select">
+                            <option value="date">按时间排序</option>
+                            <option value="name">按名称排序</option>
+                            <option value="status">按状态排序</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="appsList" class="apps-grid">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>正在加载应用列表...</p>
+                    </div>
+                </div>
+                
+                <div id="pagination" class="pagination"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 TestFlight 应用中心 | 
+                <a href="https://github.com/fmz200/global-testflight-link" target="_blank">GitHub</a> |
+                数据来源于开源社区
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
