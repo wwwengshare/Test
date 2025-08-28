@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>快捷指令合集</title>
+  <link rel="icon" href="../files/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="../files/desktop.png">
+  <link rel="manifest" href="../files/manifest.json">
+  <meta name="theme-color" content="#ffffff">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      background-color: #f5f5f5;
+      color: #1a1a1a;
+      display: flex;
+      justify-content: center;
+      font-size: 66.66%;
+    }
+
+    .container {
+      max-width: 700px;
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #e2e2e2;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      padding: 40px;
+    }
+
+    .container img.cover {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .top-link {
+      margin-bottom: 20px;
+      font-size: 0.9em;
+      color: #555555;
+    }
+
+    .top-link a {
+      color: #0070f3;
+      text-decoration: none;
+    }
+
+    .top-link a:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #111111;
+    }
+
+    .search-box {
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 40px 10px 14px;
+      font-size: 1em;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    #clearBtn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: none;
+      padding: 0;
+      line-height: 1;
+    }
+
+    #clearBtn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    #clearBtn svg:hover {
+      opacity: 0.8;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      padding-bottom: 300px;
+    }
+
+    li {
+      border: 1px solid #e2e2e2;
+      border-radius: 5px;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      transition: background-color 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    li:hover {
+      background-color: #fafafa;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .link-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    li a {
+      font-size: 1em;
+      color: #0070f3;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    li a:hover {
+      text-decoration: underline;
+    }
+
+    .stars {
+      font-size: 1em;
+      color: #f5a623;
+      white-space: nowrap;
+      margin-left: 8px;
+    }
+
+    .update-time {
+      font-size: 0.85em;
+      color: #888;
+      margin-top: 4px;
+      position: relative;
+      padding-left: 1.9em;
+    }
+
+    .clock-icon {
+      position: absolute;
+      left: 0;
+      top: 0;
+      user-select: none;
+    }
+
+    .author {
+      float: right;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 24px;
+      }
+      h1 {
+        font-size: 2em;
+      }
+      li {
+        padding: 8px 12px;
+      }
+    }
+    select {
+      background-color: #f9f9f9;
+    }
+    #refreshBtn {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 9999;
+      width: 45px;
+      height: 45px;
+      border: none;
+      border-radius: 50%;
+      background-color: rgba(200, 200, 200, 0.6); /* 淡色半透明 */
+      color: #333;
+      font-size: 1.5em;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.2s, transform 0.2s;
+      backdrop-filter: blur(5px); /* 半透明模糊背景，更高级 */
+    }
+
+    #refreshBtn:hover {
+      background-color: rgba(150, 150, 150, 0.8);
+      transform: scale(1.1);
+    }
+    /* 遮罩层覆盖全屏 */
+    #loadingOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(255,255,255,0.95); /* 半透明白色遮罩 */
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 1;
+      transition: opacity 0.6s ease; /* 渐隐过渡 */
+    }
+
+    /* Craft 风格白色小圈 spinner */
+    .spinner {
+      width: 24px;               
+      height: 24px;
+      border: 3px solid rgba(255,255,255,0.3); /* 半透明底圈 */
+      border-top: 3px solid #ffffff;           /* 白色旋转部分 */
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      box-sizing: border-box;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* 柔和深一点的半透明遮罩层 */
+    #loadingOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.2); /* 略深灰，柔和半透明 */
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="loadingOverlay">
+  <div class="spinner"></div>
+</div>
+  <div class="container">
+    <img class="cover" src="../files/fengmian.JPG" alt="封面图" />
+
+    <div class="top-link">
+      📌 我的频道：<a href="https://t.me/WWWengShare" target="_blank">https://t.me/WWWengShare</a>
+        ｜  🌐 <a href="Home.html" class="link-text">主页</a>
+    </div>
+    
+    <h1 id="pageTitle">快捷指令合集</h1>
+
+    <div class="search-box" style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <select id="timeFilter" style="flex:1; padding: 8px; font-size: 1em; border-radius: 6px; border: 1px solid #ddd;">
+        <option value="desc">📉 时间降序</option>
+        <option value="asc">📈 时间升序</option>
+        <option value="">🪪 名称排序</option>
+      </select>
+      <select id="starFilter" style="flex:1; padding: 8px; font-size: 1em; border-radius: 6px; border: 1px solid #ddd;">
+        <option value="">🌟 全部星级</option>
+        <option value="1">⭐ 1星及以上</option>
+        <option value="2">⭐⭐ 2星及以上</option>
+        <option value="3">⭐⭐⭐ 3星</option>
+      </select>
+      <select id="authorFilter" style="flex:1; padding: 8px; font-size: 1em; border-radius: 6px; border: 1px solid #ddd;">
+        <option value="">🎨 全部作者</option>
+      </select>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="🔍 搜索快捷指令关键词..." onkeyup="filterList()" />
+      <button id="clearBtn" onclick="clearSearch()" aria-label="清空搜索">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="11" fill="#e0e0e0"/>
+          <path d="M15 9L9 15M9 9l6 6" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <ul id="shortcutList"></ul>
+
+    <div id="visitorCounter" style="
+      position: fixed;
+      bottom: 10px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9em;
+      color: #999;
+      background: transparent;
+      padding: 6px 0;
+      z-index: 999;
+      opacity: 1;
+      transition: opacity 0.5s;
+    ">
+      🌐 网站总访问量：<span id="busuanzi_value_site_pv">加载中...</span>
+    </div>
+
+    <script>
+      let allShortcuts = [];
+
+      function updateTitleCount(count) {
+        const title = document.getElementById("pageTitle");
+        title.textContent = `快捷指令合集（共 ${count} 个）`;
+      }
+
+      function getCurrentFormattedTime() {
+        const now = new Date();
+        const yy = String(now.getFullYear()).slice(2);
+        const mm = String(now.getMonth() + 1).padStart(2, '0');
+        const dd = String(now.getDate()).padStart(2, '0');
+        const hh = String(now.getHours()).padStart(2, '0');
+        const min = String(now.getMinutes()).padStart(2, '0');
+        return `${yy}-${mm}-${dd}  ${hh}:${min}`;
+      }
+
+      function renderList(shortcuts) {
+        const ul = document.getElementById("shortcutList");
+        ul.innerHTML = "";
+
+        shortcuts.forEach(item => {
+          const li = document.createElement("li");
+
+          const linkRow = document.createElement("div");
+          linkRow.className = "link-row";
+
+          const emoji = document.createElement("span");
+          emoji.innerHTML = "📎&nbsp;";
+          linkRow.appendChild(emoji);
+
+          const titleWrapper = document.createElement("div");
+          titleWrapper.style.flex = "1";
+          const a = document.createElement("a");
+          let href = item.url || item.name || item.title || '#';
+          href = href.replace(/^\/?pages\//, '');
+          href = href.startsWith('/') ? href : `/${href}`;
+          a.href = href;
+          a.textContent = item.title;
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          a.style.display = "inline-block";
+
+          titleWrapper.appendChild(a);
+          linkRow.appendChild(titleWrapper);
+
+          if (item.star && item.star > 0) {
+            const stars = document.createElement("span");
+            stars.className = "stars";
+            stars.textContent = "⭐".repeat(item.star);
+            linkRow.appendChild(stars);
+          }
+
+          li.appendChild(linkRow);
+
+          const updateTime = document.createElement("div");
+          updateTime.className = "update-time";
+
+          const timeSpan = document.createElement("span");
+          timeSpan.innerHTML = `<span class="clock-icon">🕒</span>Update：${item.time || getCurrentFormattedTime()}`;
+          updateTime.appendChild(timeSpan);
+
+          if (item.author) {
+            const authorSpan = document.createElement("span");
+            authorSpan.textContent = `By：${item.author}`;
+            authorSpan.className = "author";
+            updateTime.appendChild(authorSpan);
+          }
+
+          li.appendChild(updateTime);
+          ul.appendChild(li);
+        });
+
+        if (shortcuts.length > 0) {
+          const note = document.createElement("li");
+          note.style.marginTop = "20px";
+          note.style.padding = "14px";
+          note.style.border = "none";
+          note.style.fontSize = "0.8em";
+
+          note.innerHTML = `
+            <div style="margin-bottom: 10px; text-align: center; font-size: 1.6em;">
+              🏠 <a href="Home.html" style="color: #0070f3; text-decoration: none;"><strong>返回主页</strong></a>
+            </div>
+            <div style="margin-bottom: 8px;">
+              📢 <strong>提示：</strong><br><br>①该页面快捷指令将会自动更新为最新版使用前务必看清注释内容，若不明白可结合频道的视频一起看；<br><br>②⭐表示我的推荐等级(仅评自制版，其他作者的不做打分)，最多三颗星；<br><br>③名称后面标注(插件)的表示此快捷指令比较建议搭配 Opener Pro 或者 Click All In One 这两个快捷指令使用；<br><br>④仓输入法相关快捷指令由于具有一定特殊性及上手难度，已停更，不接受Bug反馈以及疑问解答；<br><br>⑤如希望推荐你觉得好用的快捷指令或者反馈我自制部分的Bug可通过 <a href="https://t.me/wwwengbot" target="_blank">Bot 私信</a>。
+            </div>
+            <div style="height: 6px;"></div>
+          `;
+          ul.appendChild(note);
+        }
+
+        updateTitleCount(shortcuts.length);
+      }
+
+      function filterList() {
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toLowerCase();
+
+        const authorValue = document.getElementById("authorFilter").value;
+        const starValue = document.getElementById("starFilter").value;
+        const timeValue = document.getElementById("timeFilter").value;
+
+        let filtered = allShortcuts.filter(item =>
+          item.title.toLowerCase().includes(filter)
+        );
+
+        if (authorValue) {
+          filtered = filtered.filter(item => item.author === authorValue);
+        }
+        if (starValue) {
+          filtered = filtered.filter(item => item.star >= parseInt(starValue));
+        }
+
+        if (timeValue === "asc") {
+          filtered = filtered.sort((a, b) => (a.time || "").localeCompare(b.time || ""));
+        } else if (timeValue === "desc") {
+          filtered = filtered.sort((a, b) => (b.time || "").localeCompare(a.time || ""));
+        }
+
+        renderList(filtered);
+      }
+
+      async function loadShortcuts() {
+        try {
+          const response = await fetch("../files/shortcuts.json");
+          allShortcuts = await response.json();
+
+          // 生成作者选项
+          const authorSet = new Set();
+          allShortcuts.forEach(item => {
+            if (item.author) authorSet.add(item.author);
+          });
+
+          const authorSelect = document.getElementById("authorFilter");
+          [...authorSet].sort().forEach(author => {
+            const opt = document.createElement("option");
+            opt.value = author;
+            opt.textContent = author;
+            authorSelect.appendChild(opt);
+          });
+
+          // 先渲染列表
+          filterList();
+
+          // ✅ 数据加载完成后渐隐隐藏加载动画
+          const overlay = document.getElementById("loadingOverlay");
+          if (overlay) {
+            // 确保动画执行在下一个事件循环，保证 DOM 更新
+            requestAnimationFrame(() => {
+              overlay.style.transition = "opacity 0.3s ease"; // 添加平滑过渡
+              overlay.style.opacity = 0;
+              setTimeout(() => {
+                overlay.style.display = "none";
+              }, 300); // 0.3s 后彻底隐藏
+            });
+          }
+
+        } catch (e) {
+          console.error("加载快捷指令失败：", e);
+          // 出错也隐藏加载动画避免遮挡
+          const overlay = document.getElementById("loadingOverlay");
+          if (overlay) overlay.style.display = "none";
+        }
+      }
+
+      function clearSearch() {
+        const input = document.getElementById("searchInput");
+        input.value = "";
+        filterList();
+        input.focus();
+        document.getElementById("clearBtn").style.display = "none";
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        loadShortcuts();
+      });
+
+      document.getElementById("searchInput").addEventListener("input", function () {
+        document.getElementById("clearBtn").style.display = this.value.trim().length > 0 ? "block" : "none";
+      });
+
+      document.getElementById("searchInput").addEventListener("focus", function () {
+        // 仅在非 iOS 桌面模式下执行滚动
+        const isIOSStandalone = window.navigator.standalone === true;
+        if (!isIOSStandalone) {
+          this.scrollIntoView({ behavior: "smooth", block: "center" });
+          setTimeout(() => {
+            window.scrollBy({ top: -20, behavior: "smooth" });
+          }, 200);
+        }
+      });
+
+      document.getElementById("searchInput").addEventListener("keydown", function (e) {
+        if (e.key === "Enter") this.blur();
+      });
+
+      ["authorFilter", "starFilter", "timeFilter"].forEach(id => {
+        document.getElementById(id).addEventListener("change", filterList);
+      });
+    </script>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('../files/service-worker.js')
+          .then(reg => console.log('✅ Service Worker 注册成功', reg))
+          .catch(err => console.log('❌ Service Worker 注册失败', err));
+      });
+    }
+  </script>
+  <script>
+  // iOS PWA 键盘输入修复
+  if (window.matchMedia('(display-mode: standalone)').matches) {
+    document.body.addEventListener("focusin", () => {
+      document.body.style.paddingBottom = "300px"; 
+    });
+    document.body.addEventListener("focusout", () => {
+      document.body.style.paddingBottom = "0";
+    });
+  }
+  </script>
+  <script>
+    // 创建刷新按钮
+    const refreshBtn = document.createElement("button");
+    refreshBtn.id = "refreshBtn";
+    refreshBtn.title = "刷新页面";
+    refreshBtn.textContent = "⟳";
+    refreshBtn.style.cssText = `
+      position: fixed;
+      right: 28px;
+      bottom: 15px;
+      z-index: 9999;
+      width: 28px;
+      height: 28px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(200, 200, 200, 0.15);
+      color: rgba(50, 50, 50, 0.6);
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.25s ease, opacity 0.3s ease;
+      opacity: 1;
+    `;
+    document.body.appendChild(refreshBtn);
+
+    // hover 效果
+    refreshBtn.addEventListener("mouseenter", () => {
+      refreshBtn.style.background = "rgba(200, 200, 200, 0.25)";
+      refreshBtn.style.color = "rgba(50, 50, 50, 0.9)";
+      refreshBtn.style.transform = "scale(1.1)";
+    });
+    refreshBtn.addEventListener("mouseleave", () => {
+      refreshBtn.style.background = "rgba(200, 200, 200, 0.15)";
+      refreshBtn.style.color = "rgba(50, 50, 50, 0.6)";
+      refreshBtn.style.transform = "scale(1)";
+    });
+
+    // 点击刷新按钮
+    refreshBtn.addEventListener("click", () => {
+      const overlay = document.getElementById("loadingOverlay");
+      if (overlay) overlay.style.display = "flex";
+
+      setTimeout(() => {
+        if (typeof loadShortcuts === "function") loadShortcuts();
+        overlay.style.opacity = 1;
+        const fadeOut = setInterval(() => {
+          overlay.style.opacity -= 0.05;
+          if (overlay.style.opacity <= 0) {
+            overlay.style.display = "none";
+            overlay.style.opacity = 1;
+            clearInterval(fadeOut);
+          }
+        }, 16);
+      }, 200);
+    });
+
+    // 滚动显示/隐藏逻辑
+    let scrollTimer;
+    window.addEventListener("scroll", () => {
+      refreshBtn.style.opacity = "0"; // 滚动时隐藏按钮
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        refreshBtn.style.opacity = "1"; // 停止滚动 200ms 后显示
+      }, 200); // 200ms 停止滚动后显示，可调整
+    });
+  </script>
+  <script>
+      overlay.style.display = "flex";
+      overlay.style.opacity = "1"; // 字符串
+
+      setTimeout(() => {
+        const fadeOut = setInterval(() => {
+          let opacity = parseFloat(overlay.style.opacity);
+          opacity -= 0.05;
+          if (opacity <= 0) {
+            clearInterval(fadeOut);
+            overlay.style.display = "none";
+            overlay.style.opacity = "1"; // 恢复初始值
+          } else {
+            overlay.style.opacity = opacity.toString();
+          }
+        }, 16);
+      }, 200);
+  </script>
+</body>
+</html>

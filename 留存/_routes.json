@@ -2,7 +2,7 @@
   "routes": [
     {
       "src": "/(.*)$",
-      "dest": "/docs/pages/$1"
+      "dest": "/docs/$1"
     }
   ]
 }
