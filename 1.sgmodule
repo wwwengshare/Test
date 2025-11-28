@@ -1,0 +1,127 @@
+#!name= 5、Emby规则 ☑️
+#!desc=自用Emby规则
+#!author=@wwweng
+#!category=必备
+[Rule]
+RULE-SET,𝙀𝙢𝙗𝙮-𝘿,𝙀𝙢𝙗𝙮-𝘿 // 不需代理的Emby
+RULE-SET,𝙀𝙢𝙗𝙮-𝙋,𝙀𝙢𝙗𝙮-𝙋 // 需要代理的Emby
+[Ruleset 𝙀𝙢𝙗𝙮-𝙋]
+DOMAIN,cdn1.mjji.de // 蛋服代理
+DOMAIN-SUFFIX,hohai.eu.org // hohai代理
+DOMAIN-SUFFIX,feiyue.lol // 飞跃代理
+DOMAIN-SUFFIX,mcjoker.xyz // 叔服代理
+DOMAIN-SUFFIX,liminalnet.pro // 临境代理
+DOMAIN-SUFFIX,emby.my // 月饼代理
+DOMAIN-SUFFIX,nijigem.by // Nijigem代理
+DOMAIN-SUFFIX,biliblili.uk // 乐队代理
+DOMAIN-SUFFIX,micu.hk // micu代理
+DOMAIN-SUFFIX,910427.xyz // 小竹轩代理
+DOMAIN-SUFFIX,xxxxx.com // xxxxx.com
+DOMAIN-SUFFIX,nanflix.net // nanflix代理
+DOMAIN,playz.mjji.de // playz瑟瑟代理
+DOMAIN-SUFFIX,staryuki.me // star默认代理
+DOMAIN,cloudflare.mjji.de // 蛋服代理
+DOMAIN,de.mjji.de // 蛋服代理
+DOMAIN-SUFFIX,191920.xyz // 一之濑琴美代理
+DOMAIN-SUFFIX,tanhuatv.site // 探花tv代理
+DOMAIN,openani.an-i.workers.dev // 萝卜播放链接
+DOMAIN-SUFFIX,785858.xyz // 萝卜代理
+DOMAIN-SUFFIX,mebimmer.de // bava代理
+DOMAIN-SUFFIX,pilipiliultra.com // pilipili代理
+DOMAIN-SUFFIX,cn2gias.uk // sntp代理
+DOMAIN-SUFFIX,webn.cc // fworks代理
+DOMAIN-SUFFIX,emby.moe // 垃圾影音旧版
+DOMAIN-SUFFIX,xxlb.net // 垃圾影音代理播放
+DOMAIN-SUFFIX,029902.xyz // 垃圾影音代理播放
+DOMAIN-SUFFIX,xmsl.org // 垃圾影音代理
+DOMAIN-SUFFIX,loseremby.org // 垃圾影音播放代理
+DOMAIN,gd.9521732.xyz // 纸片人播放代理
+DOMAIN-SUFFIX,embyplus.org // 纸片人访问代理
+DOMAIN,film.ohhhh.org // NMEmby代理
+DOMAIN-SUFFIX,niceduck.lol // 鸢尾代理
+DOMAIN-SUFFIX,wenjian.de // 稳健服代理
+DOMAIN-SUFFIX,5203166.xyz // 鸾尾代理
+DOMAIN,ciallo.party // 0°代理
+DOMAIN-SUFFIX,bangumi.ca // Nya代理
+DOMAIN-SUFFIX,violet.run // 紫罗兰代理
+DOMAIN-SUFFIX,feiniu.lol // 肥牛代理
+DOMAIN-SUFFIX,yunti.online // 云梯代理
+DOMAIN,free.emby.eu.org // Sakura
+DOMAIN,emby.enjoyit.eu.org
+DOMAIN-SUFFIX,agahk1.jmsooo.com
+DOMAIN-SUFFIX,agajp1.jmsooo.com
+DOMAIN-SUFFIX,agasg1.jmsooo.com
+DOMAIN-SUFFIX,aws.jmsooo.com
+DOMAIN-SUFFIX,cf1.jmsooo.com
+DOMAIN-SUFFIX,cristiamo.xyz
+DOMAIN-SUFFIX,emby.cjpc.cc
+DOMAIN-SUFFIX,emby.cjpc.tv
+DOMAIN-SUFFIX,emby.cjpc.xyz
+DOMAIN-SUFFIX,emby.cristiamo.top
+DOMAIN-SUFFIX,emby.flowercloud.yt
+DOMAIN-SUFFIX,emby.immtel.com
+DOMAIN-SUFFIX,emby.maying.club
+DOMAIN-SUFFIX,emby.mcwy.me
+DOMAIN-SUFFIX,emby.mdss.cloud
+DOMAIN-SUFFIX,emby.neko.edu.rs
+DOMAIN-SUFFIX,emby.nexitally.com
+DOMAIN-SUFFIX,emby.nyancat.net
+DOMAIN-SUFFIX,emby.ok.edu.hk
+DOMAIN-SUFFIX,emby.paoche.ooo
+DOMAIN-SUFFIX,emby.prprcloud.com
+DOMAIN-SUFFIX,emby.xeton.dev
+DOMAIN-SUFFIX,emby.ytoo.li
+DOMAIN-SUFFIX,embyserver.ga
+DOMAIN-SUFFIX,hinet.jmsooo.com
+DOMAIN-SUFFIX,jellyfin.xeton.dev
+DOMAIN-SUFFIX,line.emby.men
+DOMAIN-SUFFIX,mickeycloud.com
+DOMAIN-SUFFIX,movie.xeton.dev
+DOMAIN-SUFFIX,ntt1.jmsooo.com
+DOMAIN-SUFFIX,plusmedia.site
+DOMAIN-SUFFIX,pornemby.club
+DOMAIN-SUFFIX,servers.xeton.dev
+DOMAIN-KEYWORD,jmsooo
+DOMAIN-KEYWORD,odysseyplus
+DOMAIN,cf.emby.ml
+[Ruleset 𝙀𝙢𝙗𝙮-𝘿]
+DOMAIN-SUFFIX,okemby.org // okemby直连
+DOMAIN-SUFFIX,embymv.link // peach直连播放
+DOMAIN-SUFFIX,ctyunxs.cn // Embydada直连播放
+DOMAIN-SUFFIX,10520.xyz // Embydada登陆
+DOMAIN-SUFFIX,jingzhe.pro // 惊蛰直连
+IP-CIDR,144.34.228.198/32 // msty直连
+DOMAIN,strm-cn.dtwjg.com // msty直连播放
+DOMAIN,cdn.mjji.de // 蛋服直连
+DOMAIN-SUFFIX,285286.xyz // temby直连播放
+DOMAIN-SUFFIX,nangua.de // 音服直连
+DOMAIN-KEYWORD,speedtest- // 月饼播放
+DOMAIN-SUFFIX,nubebelle.cn // 云幕直连
+DOMAIN-SUFFIX,nubebelle.vip // 云幕直连
+DOMAIN-SUFFIX,sfcj.org // 非越直连(不快)
+DOMAIN-SUFFIX,6666456.xyz // 云云直连
+DOMAIN,tv1.micu.hk // micu直连
+DOMAIN,tv.micu.hk // micu直连
+DOMAIN-SUFFIX,emos.lol // emos直连
+DOMAIN-SUFFIX,sharepoint.com // emos直连播放链接
+DOMAIN-SUFFIX,yixia.io // 亿夏直连不稳
+DOMAIN,de1.staryuki.me  // star直连
+DOMAIN, fast-1.staryuki.me.kiven.cc  // star直连
+DOMAIN,eo-star.staryuki.com // star可直连
+DOMAIN,s1.staryuki.me // star直连
+DOMAIN,saodu.asia // saodu直连
+DOMAIN-SUFFIX,114514.quest // doubon直连
+DOMAIN-SUFFIX,shrekmedia.org // shrek直连
+DOMAIN-SUFFIX,zn.al // 存档直连
+DOMAIN-SUFFIX,v50.su // 疯狂星期四kfc直连
+DOMAIN-SUFFIX,theluyuan.com // theluyuan直连
+DOMAIN-SUFFIX,a.emby.my // 月饼直连
+DOMAIN-SUFFIX,aliz.work // hka直连
+DOMAIN-SUFFIX,doven.tv // 鸽巢直连
+DOMAIN-SUFFIX,lemby.me // lemby服
+DOMAIN-SUFFIX,term.wtf // 终点站直连
+DOMAIN-SUFFIX,mius.uk // 野兽餐厅直连
+DOMAIN,jellyfin.1l1.icu // PrejudiceJellyfin直连
+DOMAIN-SUFFIX,alphatvapp.top // 海外服直连
+DOMAIN-SUFFIX,emby.wtf // 终点站直连
+DOMAIN,emby.apopcloud.live // emby.apopcloud.live直连
